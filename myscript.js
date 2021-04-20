@@ -30,11 +30,15 @@ function askUserNumber(){
     var userLengthMax = maxNumber - aiNumbersLength; // Poichè l'utente non dovrebbe immettere gli stessi numeri del pc
     var gameOver = false;
 
-    while(userNumbers.length < userLengthMax && !gameOver){
+    while(userNumbers.length <= userLengthMax && !gameOver){
         var userInput = prompt("Inserisci un numero tra " + minNumber + " e " + maxNumber + ". (" + userNumbers.length + ")");
        
         if(userInput == null){
             gameOver = true;
+        }        
+        if(userNumbers.length === userLengthMax){
+            gameOver = true;
+            alert("Hai vinto!!!");
         }
 
         var inputIsValid = checkUserInput(userInput);
@@ -47,9 +51,6 @@ function askUserNumber(){
         } else{
             userNumbers.push(parseInt(userInput));
             console.log(userNumbers)
-        }
-        if(userNumbers.length === userLengthMax){
-            alert("Hai vinto!!!");
         }
     }
 }
@@ -65,7 +66,7 @@ function checkUserInput(inputValue){
     if(numerToCheck < minNumber || numerToCheck > maxNumber){
         return false;
     }
-    if(userNumbers.indexOf(numerToCheck) > -1){
+    if(userNumbers.indexOf(numerToCheck) > -1){        
         return "GAME OVER";
     }
 
@@ -87,7 +88,7 @@ function createAiNumbers(){
 
 // Numeri randomici
 function generateRandomNumbers(min, max){
-    return Math.floor(Math.random() * max) + min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 createAiNumbers();
