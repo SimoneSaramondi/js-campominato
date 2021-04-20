@@ -1,4 +1,5 @@
 (function(){
+
 /*
 Il computer deve generare 16 numeri casuali tra 1 e 100.
 I numeri non possono essere duplicati.
@@ -27,13 +28,28 @@ var userNumbers = [];
 // Chiede il numero all'utente
 function askUserNumber(){
     var userLengthMax = maxNumber - aiNumbersLength; // Poichè l'utente non dovrebbe immettere gli stessi numeri del pc
+    var gameOver = false;
 
-    while(userNumbers.length < userLengthMax){
-        var userInput = prompt("Inserisci un numero tra " + minNumber + " e " + maxNumber + ".");
+    while(userNumbers.length < userLengthMax && !gameOver){
+        var userInput = prompt("Inserisci un numero tra " + minNumber + " e " + maxNumber + ". (" + userNumbers.length + ")");
+       
+        if(userInput == null){
+            gameOver = true;
+        }
+
         var inputIsValid = checkUserInput(userInput);
 
-        if(!inputIsValid){
-
+        if(!inputIsValid && inputIsValid !== "GAME OVER" ){
+            alert("Numero inserito non valido");
+        } else if( inputIsValid === "GAME OVER"){
+            gameOver = true;
+            alert("Hai perso dopo aver inserito " + userNumbers.length + " numeri.");
+        } else{
+            userNumbers.push(parseInt(userInput));
+            console.log(userNumbers)
+        }
+        if(userNumbers.length === userLengthMax){
+            alert("Hai vinto!!!");
         }
     }
 }
@@ -50,7 +66,7 @@ function checkUserInput(inputValue){
         return false;
     }
     if(userNumbers.indexOf(numerToCheck) > -1){
-        return false;
+        return "GAME OVER";
     }
 
     return result;
@@ -75,6 +91,6 @@ function generateRandomNumbers(min, max){
 }
 
 createAiNumbers();
-
+askUserNumber();
 
 })()
