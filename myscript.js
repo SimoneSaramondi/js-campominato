@@ -75,13 +75,13 @@ function checkUserInput(inputValue){
 
 // Creazione numeri della macchina
 function createAiNumbers(){
-    do{
+    while (aiNumbers.length < aiNumbersLength){
         var numeroRandom = generateRandomNumbers(minNumber, maxNumber);
         // Se non gia presente nell'array lo inserisce
         if(aiNumbers.indexOf(numeroRandom) === -1){
             aiNumbers.push(numeroRandom);
         }        
-    } while (aiNumbers.length < aiNumbersLength)
+    } 
 
     console.log(aiNumbers);
 }
