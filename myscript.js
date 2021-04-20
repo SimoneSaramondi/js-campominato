@@ -5,8 +5,8 @@ I numeri non possono essere duplicati.
 
 In seguito deve chiedere all’utente (100 - 16) volte di inserire
 un numero alla volta, sempre compreso tra 1 e 100.
-
 L’utente non può inserire più volte lo stesso numero.
+
 Se il numero è presente nella lista dei numeri generati, la partita termina, 
 altrimenti si continua chiedendo all’utente un altro numero.
 
@@ -22,7 +22,41 @@ var maxNumber = 100;
 var aiNumbersLength = 16;
 
 var aiNumbers = [];
+var userNumbers = [];
 
+// Chiede il numero all'utente
+function askUserNumber(){
+    var userLengthMax = maxNumber - aiNumbersLength; // Poichè l'utente non dovrebbe immettere gli stessi numeri del pc
+
+    while(userNumbers.length < userLengthMax){
+        var userInput = prompt("Inserisci un numero tra " + minNumber + " e " + maxNumber + ".");
+        var inputIsValid = checkUserInput(userInput);
+
+        if(!inputIsValid){
+
+        }
+    }
+}
+
+// Controlla il numero inserito
+function checkUserInput(inputValue){
+    var result = true;
+    var numerToCheck = parseInt(inputValue);
+
+    if(isNaN(numerToCheck)){
+        return false;
+    }
+    if(numerToCheck < minNumber || numerToCheck > maxNumber){
+        return false;
+    }
+    if(userNumbers.indexOf(numerToCheck) > -1){
+        return false;
+    }
+
+    return result;
+}
+
+// Creazione numeri della macchina
 function createAiNumbers(){
     do{
         var numeroRandom = generateRandomNumbers(minNumber, maxNumber);
@@ -35,6 +69,7 @@ function createAiNumbers(){
     console.log(aiNumbers);
 }
 
+// Numeri randomici
 function generateRandomNumbers(min, max){
     return Math.floor(Math.random() * max) + min;
 }
